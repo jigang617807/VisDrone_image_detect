@@ -1,0 +1,2 @@
+# VisDrone_image_detect
+一个无人机图像小目标检测项目，使用yolov5+SwinTransformer+Django配合实现
