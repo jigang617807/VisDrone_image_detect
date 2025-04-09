@@ -1,0 +1,192 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="http://cdn.bootcss.com/jquery/1.11.1/jquery.js"> </script>
+    <script type="text/javascript" src="{% static 'js/login.js' %}"> </script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        html {
+            height: 1000px;
+            width: 100%;
+        }
+        body {
+            background-image: linear-gradient(to bottom right, rgb(114, 135, 254), rgb(130, 88, 186));
+        }
+        .login-container {
+            width: 800px;
+            height: 695px;
+            margin: 0 auto;
+            margin-top: 10%;
+            border-radius: 15px;
+            box-shadow: 0 10px 50px 0px
+            rgb(59, 45, 159);
+            background-color: rgb(95, 76, 194);
+        }
+        .left-container {
+            display: inline-block;
+            width: 500px;
+            border-top-left-radius: 15px;
+            border-bottom-left-radius: 15px;
+            padding: 60px;
+            background-image: linear-gradient(to bottom right, rgb(118, 76, 163), rgb(92, 103, 211));
+        }
+        .title {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 200;
+        }
+        .title span {
+            border-bottom: 3px solid rgb(237, 221, 22);
+        }
+        .input-container {
+            padding: 20px 0;
+        }
+        input {
+            border: 0;
+            background: none;
+            outline: none;
+            color: #fff;
+            margin: 20px 0;
+            display: block;
+            width: 100%;
+            padding: 5px 0;
+            transition: .2s;
+            border-bottom: 1px solid rgb(199, 191, 219);
+        }
+        input:hover {
+            border-bottom-color: #fff;
+        }
+        ::-webkit-input-placeholder {
+            color: rgb(199, 191, 219);
+        }
+        .message-container {
+            font-size: 14px;
+            transition: .2s;
+            color: rgb(199, 191, 219);
+            cursor: pointer;
+        }
+        .message-container:hover {
+            color: #fff;
+        }
+        .right-container {
+            width: 145px;
+            display: inline-block;
+            height: calc(100% - 120px);
+            vertical-align: top;
+            padding: 60px 0;
+        }
+        .regist-container {
+            text-align: center;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 200;
+        }
+        .regist-container span {
+            border-bottom: 3px solid rgb(237, 221, 22);
+        }
+        .action-container {
+            font-size: 10px;
+            color: #fff;
+            text-align: center;
+            position: relative;
+            top: 200px;
+        }
+        .action-container span {
+            border: 1px solid rgb(237, 221, 22);
+            padding: 10px;
+            display: inline;
+            line-height: 20px;
+            border-radius: 20px;
+            position: absolute;
+            bottom: 10px;
+            left: calc(72px - 20px);
+            transition: .2s;
+            cursor: pointer;
+        }
+        .action-container span:hover {
+            background-color: rgb(237, 221, 22);
+            color: rgb(95, 76, 194);
+        }
+        button{
+	            background-color:#f66f6a;
+	            color:white;
+	            width: 150px;
+	            height: 30px;
+	            border:0;
+	            font-size: 16px;
+                border-radius: 30px;
+            }
+        .regis{
+            text-decoration: none;
+            font-size: 16px;
+            {#padding-left: 60px;#}
+            padding: 4px 30px ;
+            margin-left: 180px;
+            background-color:#f66f6a ;
+            border:0;
+            color:white;
+            border-radius: 30px;
+            text-align: center;
+        }
+        .forget{
+            width: 100%;
+        }
+        .code{
+            width: 500px;
+            height: 120px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="left-container">
+            <div class="title"><span>登录</span></div>
+            <div class="input-container">
+
+            <form action="{% url 'app:stulogin' %}" method="POST" >
+                <span>用户名：</span><input type="text" name="username" placeholder="请输入用户名">
+                <br>
+                <span>密码：</span><input type="password" name="password" placeholder="请输入你的密码">
+                <br>
+
+                {% csrf_token %}
+            {#    <input type="hidden" name="csrfmiddlewaretoken" value="i7oTbGDXYcWNXSRXkMuvin1QkP70kwWJk7TbVaiLfS8l5U5mE5CV50isHVWWWKmG">#}
+                <span>验证码：</span> <input type="text" name = "verify_code" placeholder="请输入下图的验证码" >
+                <br>
+                <img src="{% url 'app:get_code' %}" class = 'code'>
+                <br>
+
+                <button>登录</button>
+
+                <a href="{% url 'app:register' %}" methods="GET" class="regis">注册一个账号 </a>
+            </form>
+
+
+            </div>
+            <a href="{% url 'app:register' %}">
+                <button  class="forget" type="button">忘记密码</button>
+            </a>
+        </div>
+{#        <div class="right-container">#}
+{#            <div class="regist-container">#}
+{#                <span>#}
+{##}
+{#                </span>#}
+{#            </div>#}
+{#            <div class="action-container">#}
+{#                <span>提交</span>#}
+{#            </div>#}
+{#        </div>#}
+    </div>
+
+
+</body>
+</html>

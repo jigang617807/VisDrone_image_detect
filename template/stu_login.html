@@ -1,0 +1,233 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>StuLogin</title>
+    {% load static %}
+    <script type="text/javascript" src="http://cdn.bootcss.com/jquery/1.11.1/jquery.js"> </script>
+    <script type="text/javascript" src="{% static 'js/login.js' %}"> </script>
+    <style>
+        /* 页面整体是百分比布局 */
+        /* 
+            开始没有数据的时候，需要给盒子给固定宽高，以免盒子塌陷
+            有数据后，可以把宽高给成100%
+        */
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+
+        /* 自定义字体 */
+        @font-face {
+            /* 自定义字体名字 地址 */
+            font-family: myFont;
+            {#src: url('font/文悦莺黑\ \(须授权\).otf');#}
+            src:"{% static 'fonts/文悦莺黑\ \(须授权\).otf' %}
+        }
+
+        @font-face {
+            font-family: aimFont;
+            {#src: url('font/目标检测系统-字体.ttf');#}
+            src:"{% static 'fonts/目标检测系统-字体.ttf' %}
+        }
+
+        .register {
+            width: 100%;
+            height: 100%;
+            {#background-image: url("./image/background.png");#}
+            background-image: url({% static 'img/background.png' %});
+            /* display: flex;弹性布局  主轴默认x轴 父盒子设置，子盒子出效果*/
+            display: flex;
+            /* 主轴居中 */
+            justify-content: center;
+            /* y轴居中 */
+            align-items: center;
+        }
+
+        /* float相对定位  float_img、float_right、float_left固定定位(以float为基准而定位)*/
+        .float {
+            width: 55%;
+            height: 55%;
+            position: relative;
+        }
+
+        .float_img {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+        }
+
+        .float_right {
+            position: absolute;
+            width: 50%;
+            padding-left: 5%;
+            margin-top: 7%;
+            font-size: 30px;
+            font-family: aimFont;
+            color: #ffffff;
+        }
+
+        .float_left {
+            position: absolute;
+            margin-left: 49%;
+            margin-top: 7%;
+            width: 50%;
+            z-index: 1;
+        }
+
+        .number {
+            width: 40px;
+            height: 30px;
+        }
+
+        /* margin:auto 居中 */
+        .form {
+            width: 65%;
+            margin: auto;
+            /* margin-bottom: 30px; */
+        }
+
+        .form_span {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            /* 从y轴上面开始 */
+            align-items: flex-start;
+        }
+
+        .form_span_img {
+            width: 15px;
+        }
+
+        input {
+            width: 100%;
+            height: 30px;
+            line-height: 30px;
+            /* 边框为1px直线，颜色为#acabab */
+            border: 1px solid #e6e6e6;
+            position: relative;
+            padding-left: 35px;
+            /* 字体颜色为:#969696 */
+            color: #969696;
+        }
+
+        /* input输入框的placeholder的调整 */
+        input::-webkit-input-placeholder {
+            /* color: #aab2bd; 字体颜色*/
+            font-size: 12px;
+            /* text-align: right; 字体放置方式：左、居中、右*/
+        }
+
+        button {
+            background-color: #68cbfb;
+            color: #fff;
+            border: 0;
+            height: 40px;
+            /* 字体行高要和高度一致 */
+            line-height: 40px;
+        }
+
+        .form_span_te {
+            width: 100%;
+            height: 35px;
+            display: flex;
+            /* 主轴子元素两边紧贴盒子，其余均分空间 */
+            justify-content: space-between;
+        }
+
+        .form_te_input {
+            width: 53%;
+            height: 35px;
+            border: 1px solid #e6e6e6;
+        }
+
+        .form_te_img {
+            width: 30%;
+            height: 35px;
+        }
+
+        .form_te_span {
+            width: 18%;
+            height: 35px;
+            line-height: 35px;
+            /* 一般字体的设置最小大小为12px，但是scale可以强制缩小字体，同时自身的宽高也会跟着缩小 */
+            transform: scale(0.8);
+            font-size: 12px;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <form action="{% url 'app:stulogin' %}" method="POST" >
+    <span>用户名：</span><input type="text" name="username" placeholder="请输入用户名">
+    <br>
+    <span>密码：</span><input type="text" name="password" placeholder="请输入你的密码">
+    <br>
+
+    {% csrf_token %}
+{#    <input type="hidden" name="csrfmiddlewaretoken" value="i7oTbGDXYcWNXSRXkMuvin1QkP70kwWJk7TbVaiLfS8l5U5mE5CV50isHVWWWKmG">#}
+    <span>验证码：</span> <input type="text" name = "verify_code" placeholder="请输入下图的验证码">
+    <br>
+    <img src="{% url 'app:get_code' %}">
+    <br>
+
+    <button>登录</button>
+
+</form> 
+<a href="{% url 'app:register' %}" methods="GET"><button>注册一个账号</button> </a>
+-->
+    <div class="register">
+        <div class="float">
+            <img src="./image//floatimg.png" alt="" class="float_img" />
+            <div class="float_right">
+                <div style="width: 100%;margin-bottom: 10px;">无人机</div>
+                <div>目标检测系统</div>
+            </div>
+            <div class="float_left">
+                <div style="color: #68cbfb;
+                    font-size: 30px;font-family: myFont;text-align: center;width: 100%;margin-bottom: 40px;">
+                    用户登录</div>
+                <form method="post" class="form" name=“myform”>
+                    <span class="form_span">
+                        <!-- 
+                            background: url(./small/uname.png) 5px 20% no-repeat; url('背景图图片地址') no-repeat:图片不重复 5px 20%:图片左外边距5px,上外边距20%
+                            background-size: auto 80%; 背景图居中 大小为盒子的80%
+                         -->
+{#                        <input type="text" name="username" placeholder="请输入账号用户名"#}
+{#                            style="background: url(./small/uname.png) 5px 50% no-repeat ;background-size: auto 50%;">#}
+                         <input type="text" name="username" placeholder="请输入账号用户名"
+                        style="background: url({% static 'img/small/uname.png' %}) 5px 50% no-repeat ;background-size: auto 50%;">
+                    </span><br>
+                    <span class="form_span"><input type="text" name="password" placeholder="请输入你的用户密码"
+                            style="background: url({% static 'img/small/密码.png' %}) 5px 50% no-repeat ;background-size: auto 50%;">
+                    </span><br>
+                    <span class="form_span_te">
+                        <input type="text" name="verify_code" placeholder="请输入下图的验证码" class="form_te_input"
+                            style="background: url({% static 'img/small/验证码.png' %}) 5px 50% no-repeat ;background-size: auto 50%;">
+                        <!-- 这里img没有写，因为是验证码，后期因该要做活数据，不是单独图片 -->
+                        <img src="" alt="" class="form_te_img">
+                        <span class="form_te_span">换一张</span>
+                    </span> <br>
+                    <button class="form_span">登录</button>
+                </form>
+                <a
+                    style="color: #969696; font-size: 12px;font-family: myFont;text-align: center;width: 100%;padding-left: 18%;margin-top: 12px;transform: scale(0.5);">忘记密码?</a>
+                <div
+                    style="color: #969696; font-size: 14px;font-family: myFont;text-align: center;width: 100%;margin-top: 8%;font-weight: 200;">
+                    还没有账号？
+                    <!-- 
+                        text-decoration: none; 去掉a标签的下划线 
+                        href="./stu_register.html" a标签的链接地址
+                    -->
+                    <a href="{% url 'app:register' %}" methods="GET" class="regis">注册一个账号 </a>
+                    <a style="color: #68cbfb;text-decoration: none;" href="{% url 'app:register' %}" methods="GET" class="regis">注册一个账号 >去注册</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,70 @@
+body{
+  background-color: #f8f8f8;
+}
+.work-container{
+  margin: 30px 100px;
+}
+.work-container .photocontainer{
+  position: relative;
+  background-color: #fff;
+  padding: 40px;
+  margin: 30px 0px;
+}
+.work-container .photocontainer .drag-photo{
+  width: 400px;
+  border: 1px dashed #e2e2e2;
+  margin: 0 auto;
+  padding: 30px;
+  background-color: #f8f8f8;
+  text-align: center;
+  cursor: pointer;
+  color: #999;
+}
+.work-container .photocontainer .drag-photo img{
+  display: inline-block;
+  padding: 15px;
+}
+.work-container .photocontainer .drag-photo .fileInput{
+  visibility: hidden;
+}
+.addBtn{
+  width: 150px;
+  height: 50px;
+  background-color: #fff;
+  border: none;
+  border-radius: 5px;
+  color:#68CBFB;
+  font-weight: 600;
+  line-height: 50px;
+  text-align: center;
+  cursor: pointer;
+}
+.another{
+  margin-top: 15px;
+  width: 150px;
+  height: 50px;
+  background-color: #68CBFB;
+  border: none;
+  border-radius: 5px;
+  color:#fff;
+  font-weight: 600;
+  line-height: 50px;
+  text-align: center;
+  cursor: pointer;
+}
+.checkBtn{
+  width: 150px;
+  height: 50px;
+  background-color: #fff;
+  border: none;
+  border-radius: 5px;
+  color:#68CBFB;
+  font-weight: 600;
+  line-height: 50px;
+  text-align: center;
+  cursor: pointer;
+  margin-bottom: 30px;
+}
+.layui-btn{
+  background-color: #68CBFB;
+}

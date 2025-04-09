@@ -1,0 +1,190 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>StuRegister</title>
+    <script type="text/javascript" src="http://cdn.bootcss.com/jquery/1.11.1/jquery.js"> </script>
+    <script type="text/javascript" src="{% static 'js/login.js' %}"> </script>
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        @font-face {
+            font-family: myFont;
+            src:"{% static 'fonts/文悦莺黑\ \(须授权\).otf' %}
+        }
+
+        @font-face {
+            font-family: aimFont;
+            src:"{% static 'fonts/目标检测系统-字体.ttf' %}
+        }
+
+        .register {
+            width: 100%;
+            height: 100%;
+            background-image: url({% static 'img/background.png' %});
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .float {
+            width: 55%;
+            height: 55%;
+            position: relative;
+        }
+
+        .float_img {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+        }
+
+        .float_right {
+            position: absolute;
+            width: 35%;
+            padding-left: 5%;
+            margin-top: 7%;
+            font-size: 30px;
+            font-family: aimFont;
+            color: #ffffff;
+        }
+
+        .float_left {
+            position: absolute;
+            margin-left: 49%;
+            margin-top: 7%;
+            width: 50%;
+            z-index: 1;
+        }
+
+        .number {
+            width: 40px;
+            height: 30px;
+        }
+
+        .form {
+            width: 65%;
+            margin: auto;
+        }
+
+        .form_span {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .form_span_img {
+            width: 15px;
+        }
+
+        input {
+            width: 100%;
+            height: 30px;
+            line-height: 30px;
+            border: 1px solid #e6e6e6;
+            position: relative;
+            padding-left: 35px;
+            color: #969696;
+        }
+
+        input::-webkit-input-placeholder {
+            /* color: #aab2bd; */
+            font-size: 14px;
+            /* text-align: right; */
+        }
+
+        button {
+            background-color: #68cbfb;
+            color: #fff;
+            border: 0;
+            height: 40px;
+            line-height: 40px;
+            margin-top: 10px;
+        }
+
+        .form_span_te {
+            width: 100%;
+            height: 35px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .form_te_input {
+            width: 55%;
+            height: 35px;
+            border: 1px solid #e6e6e6;
+        }
+
+        .form_te_img {
+            width: 30%;
+            height: 35px;
+        }
+
+        .form_te_span {
+            width: 16%;
+            height: 35px;
+            line-height: 35px;
+            transform: scale(0.8);
+            font-size: 12px;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+
+{% csrf_token %}
+
+    <div class="register">
+        <div class="float">
+            <img src="/static/img/floatimg.png" alt="" class="float_img" />
+            <div class="float_right">
+                <div style="width: 100%;margin-bottom: 10px;">无人机</div>
+                <div>目标检测系统</div>
+            </div>
+            <div class="float_left">
+                <div style="color: #68cbfb; 
+                    font-size: 30px;
+                    font-family: myFont;
+                    text-align: center;
+                    width: 100%;
+                    margin-bottom: 20px;">
+                    用户注册</div>
+                <form  action="{% url 'app:register' %}" method="post" class="form" name=“myform”>
+                    <span class="form_span">
+                        <input type="text" name="username" placeholder="请输入用户名"
+                            style="background: url({% static 'img/small/uname.png' %}) 5px 50% no-repeat ;background-size: auto 50%;">
+                    </span><br>
+                    <span class="form_span"><input type="password" name="password" placeholder="请输入你的用户密码"
+                            style="background: url({% static 'img/small/密码.png' %}) 5px 50% no-repeat ;background-size: auto 50%;">
+                    </span><br>
+                    <span class="form_span"><input type="text" name="sex" placeholder="请输入你的性别"
+                            style="background: url({% static 'img/small/性别.png' %}) 5px 50% no-repeat ;background-size: auto 50%;">
+                    </span><br>
+                    <span class="form_span"><input type="text" name="age" placeholder="请输入你的年龄"
+                            style="background: url({% static 'img/small/年龄.png' %}) 5px 50% no-repeat ;background-size: auto 50%;">
+                    </span><br>
+                    <span class="form_span"><input type="text" name="phone" placeholder="请输入你的电话"
+                            style="background: url({% static 'img/small/电话.png' %}) 5px 50% no-repeat ;background-size: auto 50%;">
+                    </span><br>
+                    <span class="form_span_te">
+                        <input type="text" name="verify_code" placeholder="请输入下图的验证码" class="form_te_input"
+                            style="background: url({% static 'img/small/验证码.png' %}) 5px 50% no-repeat ;background-size: auto 50%;">
+                        <img src="{% url 'app:get_code' %}" class = 'code'>
+                        <span class="form_te_span">换一张</span>
+                    </span> <br>
+                    <button class="form_span">注册</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

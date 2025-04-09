@@ -1,0 +1,122 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>show_image</title>
+    <script type="text/javascript" src="http://cdn.bootcss.com/jquery/1.11.1/jquery.js"> </script>
+    <script type="text/javascript" src="{% static 'js/Detect.js' %}"> </script>
+    <!--这里的风格样式都可以改-->
+    <style>
+        body {
+            background-color: #f6f9fc;
+        }
+
+        .return {
+            text-decoration: none;
+            font-size: 16px;
+            padding: 4px 30px;
+            background-color: #f66f6a;
+            border: 0;
+            color: white;
+            border-radius: 30px;
+            text-align: center;
+        }
+
+        h4 {
+            text-decoration: none;
+            font-family: sans-serif;
+            font-size: 35px;
+            line-height: 1.3;
+            width: 100%;
+            padding: 30px;
+            text-align: center;
+            color: #68CBFB;
+        }
+
+        .jgzs {
+            width: 130px;
+            height: 40px;
+            color: #68cbfb;
+            line-height: 40px;
+            text-align: center;
+            border-radius: 12px;
+            background: #fff;
+            font-weight: bold;
+        }
+
+        .tables {
+            background: #fff;
+            padding-bottom: 20px;
+        }
+
+        .tables table {
+            width: 90%;
+            margin: 0 auto;
+            outline: none;
+            border: none;
+            margin-bottom: 20px;
+            border-spacing: 0;
+        }
+
+        .tables table tr th {
+            width: 25%;
+            color: #000;
+            background: #8cd7fc;
+            font-weight: normal;
+            font-size: 14px;
+            line-height: 35px;
+            border-right: 1px solid #d9e0e2;
+        }
+
+        .tables table tr td {
+            background: #f1fafd;
+            border-right: 1px solid #d9e0e2;
+            text-align: center;
+            padding: 10px 30px;
+        }
+
+        .tables table tr span {
+            font-size: 17px;
+            text-align: left;
+            display: block;
+            line-height: 25px;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>{{ student.s_name }}</h3>
+    {#<input type=button value=刷新 onclick="location.reload()" class="reload">#}
+    <br>
+    <!--获取后台该用户的所有图片上传信息-->
+    <p class="jgzs">结果展示</p>
+    <div class="tables">
+        <table border="0" align="center">
+            {% for img in imglist %}
+            <tr>
+                <th>检测前的图像</th>
+                <th>检测后的图像</th>
+                <th>检测结果信息</th>
+                <th>记录操作</th>
+            </tr>
+            <tr>
+                <td><img src="/static/upload/{{ img.u_icon }}" alt="{{ img.u_name }}" width="247" height="220"
+                        class="before" id="{{ img.id }}"></td>
+                <td> <img src="{{ img.after_uicon }}" alt="等待检测" width="247" height="220" class="after"
+                        id="{{ img.id }}+1000"></td>
+                <td><span>检测结果：<br> {{ img.message }}</span></td>
+                <td><img width="30" height="30"
+                        src="https://img.51miz.com/Element/00/77/33/70/7829c291_E773370_448683fd.png" alt="删除这条记录"
+                        class="dele" id="{{ img.id }}"></td>
+                <!--<p class="dele" id="{{ img.id }}"> 删除这条记录 </p>-->
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <br>
+    <h4><a href="{% url 'app:work' %}" class="return">返回个人中心</a></h4>
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>小目标检测中心</title>
+</head>
+<style>
+    body{
+        height: 100%;
+        width: 100%;
+        background: url("https://ts1.cn.mm.bing.net/th/id/R-C.2ae12ac16c339ee4e59ec31b0e147b49?rik=NoMYHHcpsr68Iw&riu=http%3a%2f%2fi1.3conline.com%2fimages%2fpiclib%2f201105%2f17%2fbatch%2f1%2f94936%2f1305647832497qi2zbp96q7.jpg&ehk=TLqgjOXrdpHEYJ%2bukako19sb3O3es9wKOd9Kdg3UGO8%3d&risl=&pid=ImgRaw&r=0");
+        <!--background:linear-gradient(to top left,#28b487,#7dd56f);-->
+}
+
+</style>
+<body>
+<h2 align="center">欢迎来到小目标检测中心 : {{ student.s_name }}  </h2>
+
+    <td>
+        <a href="#" type="radio"   onclick="show1()">工作台</a>
+
+    </td>
+    <td>
+        <a href="#" type="radio"   onclick="show2()">历史记录</a>
+    </td>
+    <td>
+        <a href="#" type="radio"  onclick="show3()">回收站</a>
+    </td>
+
+
+
+ <div class="container admin" id="div1">
+        <form action="{% url 'app:image_field' %}"  >
+        <h3 align="center">上传一张图片: {{ student.s_name }} <button>确认</button></h3>
+        </form>
+</div>
+
+<div class="container admin" id="div2">
+        <form action="{% url 'app:mine' %}"  >
+        <h3 align="center">展示一张图片: {{ student.s_name }}     <button>确认</button></h3>
+        </form>
+</div>
+
+<div class="container admin" id="div3">
+        <form action="{% url 'app:rubbish' %}"  >
+        <h3 align="center">回收站<button>确认</button></h3>
+        </form>
+</div>
+
+<script>
+    function show1(){
+    document.getElementById("div1").style.display="block";
+    document.getElementById("div2").style.display="none";
+    document.getElementById("div3").style.display="none";
+    }
+    function show2()
+    {
+    document.getElementById("div2").style.display="block";
+    document.getElementById("div1").style.display="none";
+    document.getElementById("div3").style.display="none";
+    }
+    function show3()
+    {
+    document.getElementById("div3").style.display="block";
+    document.getElementById("div1").style.display="none";
+    document.getElementById("div2").style.display="none";
+    }
+</script>
+
+</body>
+</html>

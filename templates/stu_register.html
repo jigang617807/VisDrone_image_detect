@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>StuRegister</title>
+    <script type="text/javascript" src="http://cdn.bootcss.com/jquery/1.11.1/jquery.js"> </script>
+    <script type="text/javascript" src="{% static 'js/login.js' %}"> </script>
+</head>
+<body>
+
+<form action="{% url 'app:register' %}" method="post">
+    <span>用户名：</span><input type="text" name="username" placeholder="请输入用户名">
+    <br>
+    <span>密码：</span><input type="password" name="password" placeholder="请输入你的用户密码">
+    <h3>输入个人信息吧</h3>
+    <br>
+    <span>性别：</span><input type="text" name="sex" placeholder="请输入你的性别">
+    <br>
+    <span>年龄：</span><input type="text" name="age" placeholder="请输入你的年龄">
+    <br>
+    <span>电话：</span><input type="text" name="phone" placeholder="请输入你的电话">
+    <br>
+
+     {% csrf_token %}
+{#    <input type="hidden" name="csrfmiddlewaretoken" value="i7oTbGDXYcWNXSRXkMuvin1QkP70kwWJk7TbVaiLfS8l5U5mE5CV50isHVWWWKmG">#}
+    <span>验证码：</span> <input type="text" name = "verify_code" placeholder="请输入下图的验证码">
+    <br>
+    <img src="{% url 'app:get_code' %}">
+    <br>
+    <button>注册</button>
+</form>
+
+
+<form action="{% url 'app:stulogin' %}" method="post">
+        <button>已有账号进行登录</button>
+</form>
+
+</body>
+</html>

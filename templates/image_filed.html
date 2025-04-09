@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'css/dialog.css' %}">
+    <script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+
+</head>
+<style>
+    body{
+        height:100vh;
+        display:flex;
+        background:linear-gradient(to top left,#28b487,#7dd56f);
+}
+    h2{
+        font-family: sans-serif;
+        font-size: 40px;
+        line-height: 1.3;
+        width: 100%;
+        padding:30px;
+
+        color: white;
+    }
+    a{
+        text-decoration: none;
+        font-size: 16px;
+        {#padding-left: 60px;#}
+        padding: 4px 30px ;
+        margin-left: 180px;
+        background-color:#f66f6a ;
+        border:0;
+        color:white;
+        border-radius: 30px;
+}
+</style>
+<body>
+<form name="myForm" action="{% url 'app:image_field' %}" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
+    {% csrf_token %}
+    <h2 >上传一张图片 : {{ student.s_name }}  </h2>
+{#    <span>用户名</span><input type="text" name = username placeholder="请输入用户名">#}
+    <br>
+    <span>图片<input type="file" name="icon"></span>
+
+    <button>上传</button>
+</form>
+
+<h2><a href="{% url 'app:stumine' %}">返回个人中心</a></h2>
+<script>
+    function validateForm(){
+      let x = document.forms["myForm"]["icon"].value;
+      if (x == "") {
+        alert("Name must be filled out");
+        return false;
+  }
+    }
+</script>
+</body>
+</html>

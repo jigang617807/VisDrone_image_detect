@@ -1,0 +1,24 @@
+body{
+  background-color: #f8f8f8;
+  padding: 30px 100px;
+}
+h3{
+  width: 150px;
+  height: 50px;
+  background-color: #fff;
+  border-radius: 5px;
+  color:#68CBFB;
+  font-weight: 600;
+  line-height: 50px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+.nofound{
+  width: 100%;
+  height: 100vh;
+  background: url('../image/404.png') no-repeat center;
+}
+/* 修改按钮颜色 */
+.layui-btn{
+  background-color: #68CBFB;
+}

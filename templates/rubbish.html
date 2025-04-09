@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rubbish</title>
+    <script type="text/javascript" src="http://cdn.bootcss.com/jquery/1.11.1/jquery.js"> </script>
+    <script type="text/javascript" src="{% static 'js/rubbish.js' %}"> </script>
+    <style>
+       .return{
+        text-decoration: none;
+        font-size: 16px;
+        padding: 4px 30px ;
+        background-color:#f66f6a ;
+        border:0;
+        color:white;
+        border-radius: 30px;
+        text-align: center;
+       }
+
+    body{
+        background:linear-gradient(to top left,#28b487,#7dd56f);
+    }
+    h3{
+        text-decoration: none;
+        font-family: sans-serif;
+        font-size: 50px;
+        line-height: 1.3;
+        width: 100%;
+        padding:30px;
+        text-align: center;
+        color: white;
+    }
+    </style>
+</head>
+<body>
+<h3>{{ student.s_name }}</h3>
+{#<input type=button value=刷新 onclick="location.reload()" class="reload">#}
+<br>
+
+<table border="1" align="center">
+    {% for img in imglist  %}
+
+<tr>
+    <th>检测前的图像</th>
+    <th>检测后的图像</th>
+    <th>检测结果信息</th>
+    <th>记录操作</th>
+</tr>
+
+<tr>
+    <td><img src="/static/upload/{{ img.r_icon }}" alt="{{ img.r_name }}" width="300" height="300" class="before" id="{{ img.id }}" ></td>
+    <td>    <img src="{{ img.r_after_uicon }}" alt="等待检测" width="300" height="300" class="after"  id="{{ img.id }}+1000"></td>
+    <td>    检测结果：{{ img.r_message }}</td>
+    <td><img  width="30" height="30" src="https://img.51miz.com/Element/00/77/33/70/7829c291_E773370_448683fd.png" alt="删除这条记录" class="dele" id="{{ img.id }}"></td>
+<!--<p class="dele" id="{{ img.id }}"> 删除这条记录 </p>-->
+</tr>
+{% endfor %}
+</table>
+
+<br>
+
+<h3><a href="{% url 'app:stumine' %}" class="return">返回个人中心</a></h3>
+
+</body>
+</html>

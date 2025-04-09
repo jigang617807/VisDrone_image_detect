@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Layui</title>
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <!-- layui的样式引入 -->
+    <link rel="stylesheet" href="/css/layui.css" />
+    <link rel="stylesheet" href="./css/history.css" />
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <style>
+      .layui-form {
+        padding: 10px 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h3>记录展示</h3>
+    <div class="nofound"></div>
+    <div class="history-container">
+      <table class="layui-hide" id="test" lay-filter="test"></table>
+    </div>
+
+    <!-- 弹出层内容 -->
+    <div class="propt-container">
+      <div class="compare">
+        <div class="left">
+          <div class="img-container">
+            <img src="" alt="" />
+          </div>
+          <div class="more">
+            <label>检测前</label>
+          </div>
+        </div>
+        <div class="right">
+          <div class="img-container">
+            <img src="" alt="" />
+          </div>
+          <div class="more">
+            <label>检测后</label>
+            <button id="saveBtn">保存</button>
+          </div>
+        </div>
+      </div>
+      <table class="layui-hide" id="detailTable" lay-filter="detailTable"></table>
+    </div>
+
+    <script type="text/html" id="toolbarDemo">
+      <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="delete">批量删除</button>
+      </div>
+    </script>
+
+    <script type="text/html" id="barDemo">
+      <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
+      <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
+
+    <!-- layui的js文件 -->
+    <script src="./layui.js"></script>
+
+    <script>
+      let result = [1]
+      // 当数据从后端获取时放开下面代码，并且把result改为[]
+      // function getData(url) {
+      //   $.ajax({
+      //     type: 'GET',
+      //     url: url, // 后端接口地址
+      //     data: {
+      //       id: 1
+      //     },
+      //     success: function (res) {
+      //       let data = res.data
+      //       // 检测数据长度
+      //       if (data.length !== 0) {
+      //         result = data
+      //       }
+      //     }
+      //   })
+      // }
+      // getData('xxx')
+      let nofound = document.querySelector('.nofound')
+      let historyContainer = document.querySelector('.history-container')
+      // 有数据则显示
+      if (result.length === 0) {
+        historyContainer.style.display = 'none'
+      } else {
+        nofound.style.display = 'none'
+      }
+
+      let workData = [
+        { id: 1, name: '', speed: '', time: '' },
+        { id: 2, name: '', speed: '', time: '' },
+        { id: 3, name: '', speed: '', time: '' },
+        { id: 4, name: '', speed: '', time: '' },
+        { id: 5, name: '', speed: '', time: '' },
+        { id: 6, name: '', speed: '', time: '' },
+        { id: 7, name: '', speed: '', time: '' },
+        { id: 8, name: '', speed: '', time: '' }
+      ]
+
+      layui.use('table', function () {
+        var table = layui.table
+
+        table.render({
+          elem: '#test',
+          title: '工作表',
+          height: 450,
+          toolbar: '#toolbarDemo', //开启头部工具栏，并为其绑定左侧模板
+          cols: [
+            [
+              { type: 'checkbox', width: 60 }, // 复选框
+              //表头
+              {
+                field: 'id',
+                title: '序号',
+                width: 130,
+                align: 'center'
+              },
+              { field: 'name', title: '检测日期', align: 'center', width: 250 },
+              { field: 'name', title: '项目类型', align: 'center', width: 150 },
+              { field: 'speed', title: '目标名称', align: 'center', width: 150 },
+              { field: 'time', title: '目标数目', align: 'center', width: 150 },
+              { field: 'time', title: '检测用时', align: 'center', width: 200 },
+              ,
+              { title: '操作', toolbar: '#barDemo', width: 115, align: 'center' }
+            ]
+          ],
+          // 静态数据 当与后端交互的时候取掉
+          data: workData,
+          page: true, //开启分页
+          limit: 10 // 分页数据限制，当后端也做了分页限制的时候要保证限制个数一致，因为这是前端分页
+          // 与后端交互修改部分
+          // url: '../../demo/table/user/-page=1&limit=30.js', //数据接口
+          // ,parseData: function(res){ //res 即为原始返回的数据
+          //   return {
+          //     "code": res.status, //解析接口状态
+          //     "msg": res.message, //解析提示文本
+          //     "count": res.data.length, //解析数据长度
+          //     "data": res.data //解析数据列表
+          //   };
+          // }
+          // 与后台交互
+          // response: {
+          //   statusName: 'code', //规定返回的状态码字段为code
+          //   statusCode: 200 //规定成功的状态码味200
+          // }
+        })
+
+        //头工具栏事件
+        table.on('toolbar(test)', function (obj) {
+          var checkStatus = table.checkStatus(obj.config.id)
+          switch (obj.event) {
+            case 'getCheckData':
+              var data = checkStatus.data
+              layer.alert(JSON.stringify(data))
+              break
+            case 'getCheckLength':
+              var data = checkStatus.data
+              layer.msg('选中了：' + data.length + ' 个')
+              break
+            case 'delete':
+              var data = checkStatus.data
+              if (data.length > 0) {
+                // 本地删除
+                layer.confirm('确定删除选中的用户？', { icon: 3, title: '提示信息' }, function (index) {
+                  //layui中找到CheckBox所在的行，并遍历找到行的顺序
+                  $("div.layui-table-body table tbody input[name='layTableCheckbox']:checked").each(function () {
+                    // 遍历选中的checkbox
+                    n = $(this).parents('tbody tr').index() // 获取checkbox所在行的顺序
+                    //移除行
+                    $('div.layui-table-body table tbody ')
+                      .find('tr:eq(' + n + ')')
+                      .remove()
+                    //如果是全选移除，就将全选CheckBox还原为未选中状态
+                    $('div.layui-table-header table thead div.layui-unselect.layui-form-checkbox').removeClass(
+                      'layui-form-checked'
+                    )
+                  })
+                  layer.close(index)
+                })
+                // 后端删除，将要删除的数据data发送至后端
+                // window.location.reload() // 当进行对接时将此行代码放开，进行自动更新
+              } else {
+                layer.msg('请选择需要删除的行')
+              }
+              break
+          }
+        })
+        table.on('tool(test)', function (obj) {
+          var data = obj.data //获得当前行数据
+          var layEvent = obj.event //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+
+          if (layEvent === 'detail') {
+            //查看
+            //do somehing
+            // 打开弹出层
+            layui.use('layer', function () {
+              var layer = layui.layer
+              var table = layui.table
+
+              layer.open({
+                title: '详细信息',
+                type: 1,
+                content: $('.propt-container'),
+                offset: 't'
+              })
+              //转换静态表格
+              table.init('detailTable', {
+                cols: [
+                  [
+                    {
+                      field: 'id',
+                      title: '序号',
+                      width: 80,
+                      sort: true,
+                      fixed: 'left'
+                    },
+                    { field: 'name', title: '检测日期' },
+                    { field: 'speed', title: '目标名称' },
+                    { field: 'time', title: '目标数目' },
+                    { field: 'time', title: '检测用时' }
+                  ]
+                ],
+                data: [data]
+              })
+            })
+          } else if (layEvent === 'del') {
+            //删除
+            layer.confirm('真的删除行么', function (index) {
+              obj.del() //删除对应行（tr）的DOM结构，并更新缓存
+              layer.close(index)
+              //向服务端发送删除指令
+            })
+          }
+        })
+      })
+    </script>
+
+    <script>
+      let saveBtn = document.querySelector('#saveBtn')
+      saveBtn.addEventListener('click', () => {
+        console.log('点击了')
+        const a = document.createElement('a') // 创建一个a标签
+        // 将需要下载的图片放在href处
+        a.href = './image/404.png'
+        // 图片下载的名称
+        a.download = '图片.jpg' // a标签的download属性赋值
+        document.body.appendChild(a) // 添加a标签到body下
+        a.click() // 触发a标签点击事件
+        document.body.removeChild(a) //  完成后删除a标签
+      })
+    </script>
+  </body>
+</html>
